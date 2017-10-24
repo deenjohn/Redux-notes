@@ -98,6 +98,7 @@ const Todo = ({
 
 
 ```javascript
+Redux: Extracting Presentational Components (Todo, TodoList)
 
 const todo = (state, action) => {
   switch (action.type) {
@@ -296,6 +297,12 @@ const render = () => {
 
 store.subscribe(render);
 render();
+
+
+
+
+  
+  
 
 
 
