@@ -168,6 +168,57 @@ class FilterLink extends Component {
 
 ```javascript
 
+const AddTodo = ({
+  onAddClick
+}) => {
+  let input;
+  return (
+    <div>
+      <input ref={node => {
+        input = node
+      }} />
+      <button onClick={()=>{
+          onAddClick(input.value);
+          input.value = '';
+      }}>
+      Add Todo
+      </button>
+    </div>
+  );
+};
+
+
+
+```
+
+### After
+
+```javascript
+
+//container
+const AddTodo = () => {
+    let input;
+    return (
+        <div>
+            <input ref={ node => {
+                input = node
+            }} />
+            <button onClick={()=>{
+                 
+                    store.dispatch({
+                      type : 'ADD_TODO',
+                      id   : nextTodoId++,
+                      text : input.value
+                })
+                
+                input.value = '';
+            }}>
+            Add Todo
+            </button>
+        </div>
+    );
+};
+
 
 
 
@@ -175,7 +226,7 @@ class FilterLink extends Component {
 ```
 
 
-### After
+### Full code
 
 ```javascript
 
