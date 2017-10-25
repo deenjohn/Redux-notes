@@ -1,4 +1,7 @@
 
+
+Generate a container component that will render the Presentational component.
+
 ### Before
 ```javascript
 
@@ -78,6 +81,24 @@ const VisbilityTodoList = connect(
     mapDispatchToProps
 )(TodoList);
 
+
+
+TodoList gets props todos , onTodoClick and its own props like <VisbilityTodoList test ="test" ...  />
+
+const TodoList = ({
+    todos,
+    onTodoClick
+}) => (
+    <ul>
+        {todos.map(todo=> 
+            <Todo
+                key={todo.id}
+                {...todo}
+                onClick={() => onTodoClick(todo.id)}
+            />
+        )}
+    </ul>
+);
 
 
 ```
