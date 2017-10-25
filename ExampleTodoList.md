@@ -1,14 +1,5 @@
 
-
-### Before
-```javascript
-
-
-
-
-```
-
-### After
+### pass the todos and onTodoClick to TodoList
 
 #### containers/VisibleTodoList.js
 ```javascript
@@ -48,6 +39,7 @@ const VisibleTodoList = connect(
   mapStateToProps,
   mapDispatchToProps
 )(TodoList)
+
 
 export default VisibleTodoList
 
