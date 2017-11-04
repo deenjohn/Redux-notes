@@ -19,7 +19,7 @@ const counter = (state = 0, action) => {
 } 
 
 const { createStore } = Redux;
-const store = createStore(counter);
+const store = createStore(counter); // inside store , state = reducer(state, action);
 const render = () => {
   document.body.innerText = store.getState();
 }
