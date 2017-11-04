@@ -37,6 +37,7 @@ const createStore = (reducer) => {
 };
 
 const store = createStore(counter); // runs all the code inside createStore
+ // first time default state = 0 is returned
 
 ```
 
