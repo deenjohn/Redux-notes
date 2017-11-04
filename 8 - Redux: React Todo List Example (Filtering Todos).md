@@ -73,7 +73,7 @@ const FilterLink = ({
         e.preventDefault();
         store.dispatch({
           type: 'SET_VISIBILITY_FILTER',
-          filter
+          filter                          // filter = 'SHOW_ALL'
         });
       }}
     >
