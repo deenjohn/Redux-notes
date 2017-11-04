@@ -17,16 +17,30 @@
 	 * @returns {Function} A store enhancer applying the middleware.
 	 */
    
-   
+  	 ```javascript
+
+		const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore); //return function (createStore)
+
+		console.log(createStoreWithMiddleware);
+		
+		ReactDOM.render(
+ 		  <Provider store={createStoreWithMiddleware(reducers)}>
+    			<App />
+  		  </Provider>,
+  		  document.querySelector(".container")
+	       );
+
+	   ```
    
    ```javascript
 
-function applyMiddleware() {
+    function applyMiddleware() {
 	  for (var _len = arguments.length, middlewares = Array(_len), _key = 0; _key < _len; _key++) {
 	    middlewares[_key] = arguments[_key];
 	  }
 
-	  return function (createStore) {
+	 return function (createStore) {
+	 
 	    return function (reducer, preloadedState, enhancer) {
 	      var store = createStore(reducer, preloadedState, enhancer);
 	      var _dispatch = store.dispatch;
