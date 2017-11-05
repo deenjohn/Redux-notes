@@ -23,11 +23,13 @@ function customLog({ dispatch }) {
 function customReduxPromise({ dispatch }) {
   return next => action => {
     if (!action.payload || !action.payload.then) {
-      return next(action);
+      return next(action);                         // pass on to next middleware
     }
+    
+    // go to middleware cycle again starting from ist middleware 
     action.payload.then(function(response) {
       const newAction = { ...action, payload: response };
-      dispatch(newAction);
+      dispatch(newAction);                              // we dispatch if we ever change the action 
     });
   };
 }
