@@ -5,6 +5,12 @@ index.js
 
 ```javascript
 
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import ReduxPromise from "redux-promise";
+
+import App from "./components/app";
 import reducers from "./reducers";
 
 function customLog({ dispatch }) {
@@ -13,10 +19,23 @@ function customLog({ dispatch }) {
     next(action);
   };
 }
-const createStoreWithMiddleware = applyMiddleware(ReduxPromise, Log)(
-  createStore
-);
 
+function customReduxPromise({ dispatch }) {
+  return next => action => {
+    if (!action.payload || !action.payload.then) {
+      return next(action);
+    }
+    action.payload.then(function(response) {
+      const newAction = { ...action, payload: response };
+      dispatch(newAction);
+    });
+  };
+}
+
+const createStoreWithMiddleware = applyMiddleware(
+  customReduxPromise,
+  customLog
+)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
