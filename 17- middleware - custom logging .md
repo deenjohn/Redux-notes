@@ -5,38 +5,46 @@ index.js
 
 ```javascript
 
+import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+
+//createstore
 import { createStore, applyMiddleware } from "redux";
 import ReduxPromise from "redux-promise";
 
 import App from "./components/app";
 import reducers from "./reducers";
 
-function customLog({ dispatch }) {
+//middleware
+function customLog() {
   return next => action => {
     console.log("middleware ", action);
     next(action);
   };
 }
 
+//middleware
 function customReduxPromise({ dispatch }) {
   return next => action => {
     if (!action.payload || !action.payload.then) {
-      return next(action);                         // pass on to next middleware
+      console.log("next(action) ", action.payload || action.payload.then);
+      return next(action);
+      // data is recieved from promisified
+      // pass on to next middleware ie reducer in this case
     }
-    
-    // go to middleware cycle again starting from ist middleware 
+    // go to middleware cycle again starting from ist middleware
     action.payload.then(function(response) {
       const newAction = { ...action, payload: response };
-      dispatch(newAction);                              // we dispatch if we ever change the action 
+      dispatch(newAction); // we dispatch if we ever change the action
     });
   };
 }
 
+//we will use this custom hoc createstore function for reducers
 const createStoreWithMiddleware = applyMiddleware(
-  customReduxPromise,
-  customLog
+  customLog,
+  customReduxPromise
 )(createStore);
 
 ReactDOM.render(
