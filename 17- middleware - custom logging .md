@@ -28,7 +28,7 @@ function customLog() {
 function customReduxPromise({ dispatch }) {
   return next => action => {
     if (!action.payload || !action.payload.then) {
-      console.log("next(action) ", action.payload || action.payload.then);
+      
       return next(action);
       // data is recieved from promisified
       // pass on to next middleware ie reducer in this case
